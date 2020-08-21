@@ -4,6 +4,7 @@ import {v4 as uuid} from 'uuid';
 import HomePage from './HomePage';
 import PizzaForm from './PizzaForm';
 import formSchema from './formSchema';
+import Order from './Order'
 
 const initialOrdersList = [
   {
@@ -110,7 +111,21 @@ const submit = () => {
     toppings: Object.keys(formValues.toppings),
     special_instructions: formValues.special_instructions.trim(),
   }
+  postNewOrder(newOrder)
 }
+
+useEffect(() => {
+  getOrders()
+},[])
+
+
+useEffect(() => {
+  formSchema.isValid(formValues)
+  .then(valid => {
+    setDisabled(!valid)
+  })
+}, [formValues])
+
 
   return (
     <>
@@ -125,12 +140,27 @@ const submit = () => {
       <div>
         {/* <Switch> */}
           <Route path='/PizzaForm'>
-            <PizzaForm />
+            <PizzaForm 
+            values={formValues}
+            inputChange={inputChange}
+            checkboxChange={checkboxChange}
+            submit={submit}
+            disabled={disabled}
+            errors={errors}
+            />
           </Route>
 
-          {/* <Route path='/'>
+          {
+            orders.map((order) => {
+              return(
+                <Order key={order.id} details={order} />
+              )
+            })
+          }
+
+          <Route path='/'>
             <HomePage />
-          </Route> */}
+          </Route>
         {/* </Switch> */}
       </div>
     </>
