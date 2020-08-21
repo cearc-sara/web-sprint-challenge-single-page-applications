@@ -28,7 +28,7 @@ const onInputChange = evt => {
 
 
     return (
-        <div className='form container' onSubmit={onSubmit}>
+        <form className='form container' onSubmit={onSubmit}>
             <div className='form-group submit'>
                 <h2>Add an Order</h2>
                 <button id='submitBtn' disabled={disabled}>Submit</button>
@@ -36,7 +36,7 @@ const onInputChange = evt => {
                 <div className='errors'>
                     <div>{errors.name}</div>
                     <div>{errors.pizza_size}</div>
-                    <div>{errors.toppings}</div>
+                    {/* <div>{errors.toppings}</div> */}
                 </div>
             </div>
 
@@ -141,7 +141,7 @@ const onInputChange = evt => {
                     />
                 </label>
             </div>
-        </div>
+        </form>
     )
 }
 
